@@ -12,7 +12,7 @@ joy = 50
 grd = 50
 #Card bank
 unused_cards = []
-for i in range (1, 51):
+for i in range (1, 41):
     unused_cards.append(i)
 
 def card(n):
@@ -522,44 +522,41 @@ def main():
     '''
     print('HP:', hth, 'J:', joy, 'M:', fin, 'GR:', grd)
     print('\n')
-    while sum(unused_cards) != 0:
-        while fin * hth * joy * grd != 0:
-            accident = ran.randrange(0, 11)
-            if fin > 99:
-                print(loc.TOO_MANY_M)
-                sys.exit()
-            if hth > 99:
-                print(loc.TOO_MANY_H)
-                sys.exit()
-            if joy > 99:
-                print(loc.TOO_MANY_J)
-                sys.exit()
-            if grd > 99:
-                print(loc.TOO_MANY_G)
-                sys.exit()
-            if accident < 10:
+    while fin > 0 and hth > 0 and joy > 0 and grd > 0:
+        accident = ran.randrange(0, 11)
+        if fin > 99:
+            print(loc.TOO_MANY_M)
+            break
+        if hth > 99:
+            print(loc.TOO_MANY_H)
+            break
+        if joy > 99:
+            print(loc.TOO_MANY_J)
+            break
+        if grd > 99:
+            print(loc.TOO_MANY_G)
+            break
+        if accident < 10:
+            if sum(unused_cards) > 0:
                 n = ran.choice(unused_cards)
-                unused_cards.remove(n)
                 card(n)
+                unused_cards.remove(n)
             else:
-                a = ran.randrange(1, 11)
-                accidents(a)
-                print('HP:', hth, 'J:', joy, 'M:', fin, 'GR:', grd)
-                print('\n')
+                print(loc.VICTORY)
+                break
         else:
-            if fin < 1:
-                print(loc.LOW_F)
-                sys.exit()
-            if hth < 1:
-                print(loc.LOW_H)
-                sys.exit()
-            if joy < 1:
-                print(loc.LOW_J)
-                sys.exit()
-            if grd < 1:
-                print(loc.LOW_M)
-                sys.exit()
+            a = ran.randrange(1, 11)
+            accidents(a)
+            print('HP:', hth, 'J:', joy, 'M:', fin, 'GR:', grd)
+            print('\n')
     else:
-        print (loc.VICTORY)
+        if fin < 1:
+            print(loc.LOW_F)
+        if hth < 1:
+            print(loc.LOW_H)
+        if joy < 1:
+            print(loc.LOW_J)
+        if grd < 1:
+            print(loc.LOW_M)
 
 main()
